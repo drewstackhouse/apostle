@@ -38,8 +38,8 @@ def worker(bible_obj):
       chapter = get_chapter(code, resource)
       bible_obj.update(chapter)
       bible_obj.queue.task_done()
-     except:
-        print('An error occurred.')
+    except:
+      print('An error occurred.')
 
 
 class Bible:
