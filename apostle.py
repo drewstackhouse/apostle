@@ -106,7 +106,7 @@ def restrict_length(path, words=100):
   path = path.split('.txt')[0]
   new_path = f'{path}_filt.txt'
   with open(new_path,'a') as outfile:
-    with open(path,'r') as infile:
+    with open(f'{path}.txt','r') as infile:
       for line in infile:
         src, tgt = line.split('\t')
         src_split = src.split(' ')
