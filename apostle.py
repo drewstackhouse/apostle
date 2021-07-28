@@ -114,7 +114,7 @@ def restrict_length(path, words=100):
     os.rename(new_path, path)
 
 
-if __name__ == __main__:
+if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('--output','-o', type=str, help="output filename")
   parser.add_argument('--source','-s', nargs='+', type=int, help="codes of source language texts")
