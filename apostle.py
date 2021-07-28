@@ -85,8 +85,8 @@ def get_multiple(source_target_dict):
     bible.queue.join()
     master[code] = bible.verses
     print(f'{code} saved.')
-    print(f'Bible consumes {sys.getsizeof(master[code])/1000000} MB.')
   
+  print('All bibles saved.')
   return master
 
 
@@ -115,6 +115,7 @@ def restrict_length(path, words=100):
           outfile.write(line)
     os.remove(path)
     os.rename(new_path, path)
+   print('Length restriction complete.')
 
 
 if __name__ == '__main__':
