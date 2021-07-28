@@ -1,4 +1,3 @@
-!pip install -q cloudscraper
 import os
 import re
 import sys
