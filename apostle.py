@@ -103,10 +103,9 @@ def map_joins(outpath, master_dict, source, target):
 
 
 def restrict_length(path, words=100):
-  path = path.split('.txt')[0]
-  new_path = f'{path}_filt.txt'
+  new_path = f'{path.split(".txt")[0]}_filt.txt'
   with open(new_path,'a') as outfile:
-    with open(f'{path}.txt','r') as infile:
+    with open(path,'r') as infile:
       for line in infile:
         src, tgt = line.split('\t')
         src_split = src.split(' ')
