@@ -88,7 +88,7 @@ def get_multiple(source_target_dict):
     return master
 
 
-def map_joins(outpath, master_dict):
+def map_joins(outpath, master_dict, source, target):
   for s in source:
     src = pd.DataFrame(list(master_dict[s].items())).rename(columns={0:'verse',1:'src'}).set_index('verse')
     for t in target:
@@ -128,5 +128,5 @@ if __name__ == '__main__':
 
   to_scrape = {'source':source, 'target':target}
   master = get_multiple(to_scrape)
-  map_joins(outpath, master)
+  map_joins(outpath, master, source, target)
   restrict_length(outpath)
