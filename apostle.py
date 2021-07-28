@@ -12,35 +12,34 @@ from bs4 import BeautifulSoup
 
 
 def get_chapter(code, resource):
-  try:
-    scraper = cloudscraper.create_scraper()
-    chapter = scraper.get(f"https://www.bible.com/bible/{code}/{resource}").content
-    soup = BeautifulSoup(chapter, 'html.parser')
-    verse_wrappers = [s for s in soup.find_all('span') if 'data-usfm' in s.attrs.keys()]
-    verse_nums = set([v.get('data-usfm') for v in verse_wrappers])
-    verse_spans = []
-    for v in verse_nums:
-      span_list = soup.find_all('span',attrs={'data-usfm':v})
-      all_verse_content = ""
-      for s in span_list:
-        individual_spans = s.find_all('span',attrs={'class':'content'})
-        content = ' '.join([i.text.strip() for i in individual_spans])
-        all_verse_content += content + ' '
-      verse_spans.append([v, all_verse_content.strip()])
-    verse_spans.sort(key=lambda pair: int(pair[0].split('.')[-1]))
-    verse_spans = {line[0]:line[1] for line in verse_spans}
-    return verse_spans
-  except ConnectionResetError as e:
-    print(f'Code {code} resource {resource} could not be written; connection was reset.')
-    print(e)
+  scraper = cloudscraper.create_scraper()
+  chapter = scraper.get(f"https://www.bible.com/bible/{code}/{resource}").content
+  soup = BeautifulSoup(chapter, 'html.parser')
+  verse_wrappers = [s for s in soup.find_all('span') if 'data-usfm' in s.attrs.keys()]
+  verse_nums = set([v.get('data-usfm') for v in verse_wrappers])
+  verse_spans = []
+  for v in verse_nums:
+    span_list = soup.find_all('span',attrs={'data-usfm':v})
+    all_verse_content = ""
+    for s in span_list:
+      individual_spans = s.find_all('span',attrs={'class':'content'})
+      content = ' '.join([i.text.strip() for i in individual_spans])
+      all_verse_content += content + ' '
+    verse_spans.append([v, all_verse_content.strip()])
+  verse_spans.sort(key=lambda pair: int(pair[0].split('.')[-1]))
+  verse_spans = {line[0]:line[1] for line in verse_spans}
+  return verse_spans
 
 def worker(bible_obj):
   while True:
-    code = bible_obj.code
-    resource = bible_obj.queue.get()
-    chapter = get_chapter(code, resource)
-    bible_obj.update(chapter)
-    bible_obj.queue.task_done()
+    try:
+      code = bible_obj.code
+      resource = bible_obj.queue.get()
+      chapter = get_chapter(code, resource)
+      bible_obj.update(chapter)
+      bible_obj.queue.task_done()
+     except:
+        print('An error occurred.')
 
 
 class Bible:
