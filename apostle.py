@@ -85,7 +85,7 @@ def get_multiple(source_target_dict):
     print(f'{code} saved.')
     print(f'Bible consumes {sys.getsizeof(master[code])/1000000} MB.')
   
-    return master
+  return master
 
 
 def map_joins(outpath, master_dict, source, target):
