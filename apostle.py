@@ -47,8 +47,9 @@ class Bible:
     self.queue = self.build_queue()
 
   def build_queue(self):
-    url = "https://raw.githubusercontent.com/drewstackhouse/scraper/main/index.json"
-    index = requests.get("https://raw.githubusercontent.com/drewstackhouse/scraper/main/index.json").json()
+    with open('index.json','r') as f:
+      index = json.loads(f.read())
+
     pages = []
     for book in index:
       num_verses = int(index.get(book))
