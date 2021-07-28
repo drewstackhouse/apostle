@@ -31,12 +31,12 @@ def get_chapter(code, resource):
 
 
 def worker(bible_obj):
-while True:
-code = bible_obj.code
-resource = bible_obj.queue.get()
-chapter = get_chapter(code, resource)
-bible_obj.update(chapter)
-bible_obj.queue.task_done()
+  while True:
+    code = bible_obj.code
+    resource = bible_obj.queue.get()
+    chapter = get_chapter(code, resource)
+    bible_obj.update(chapter)
+    bible_obj.queue.task_done()
 
 
 class Bible:
