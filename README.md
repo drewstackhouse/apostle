@@ -2,8 +2,8 @@
 
 ```
 $ git clone https://github.com/drewstackhouse/apostle.git
-$ pip install -r requirements.txt
 $ cd apostle
+$ pip install -r requirements.txt
 ```
 
 # Usage:
