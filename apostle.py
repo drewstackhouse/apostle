@@ -111,7 +111,7 @@ def restrict_length(path, words=100):
         src_split = src.split(' ')
         tgt_split = tgt.split(' ')
         max_len = max([len(src_split), len(tgt_split)])
-        if max_len <= 100:
+        if max_len <= words:
           outfile.write(line)
     os.remove(path)
     os.rename(new_path, path)
