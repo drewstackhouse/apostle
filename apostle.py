@@ -115,7 +115,7 @@ def restrict_length(path, words=100):
           outfile.write(line)
     os.remove(path)
     os.rename(new_path, path)
-   print('Length restriction complete.')
+    print('Length restriction complete.')
 
 
 if __name__ == '__main__':
