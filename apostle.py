@@ -74,18 +74,17 @@ def get_multiple(source_target_dict):
   target = source_target_dict['target']
   master = {code:None for code in source + target}
   for code in master:
-    if not master[code]:
-      bible = Bible(code)
-      threads = []
-      n_threads = 50
-      for i in range(n_threads):
-        t = threading.Thread(target=worker, args=(bible, ), daemon=True)
-        threads.append(t)
-      for t in threads:
-        t.start()
-      bible.queue.join()
-      master[code] = bible.verses
-      print(f'{code} saved.')
+    bible = Bible(code)
+    threads = []
+    n_threads = 50
+    for i in range(n_threads):
+      t = threading.Thread(target=worker, args=(bible, ), daemon=True)
+      threads.append(t)
+    for t in threads:
+      t.start()
+    bible.queue.join()
+    master[code] = bible.verses
+    print(f'{code} saved.')
   
   print('All bibles saved.')
   return master
