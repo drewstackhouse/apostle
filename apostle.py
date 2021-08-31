@@ -104,15 +104,15 @@ class Apostle:
 
     newlines = []
     for line in lines:
-      en, ch = line.split('\t')
-      src_punc = re.findall('([\,\.\:\;\!\?\-])', en)
-      ch_punc = re.findall('([\,\.\:\;\!\?\-])', ch)
-      if src_punc == ch_punc:
-        src_split = re.split('([\,\.\:\;\!\?\-])', en)
-        ch_split = re.split('([\,\.\:\;\!\?\-])', ch)
-        en = src_split[0:-1:2]
-        ch = ch_split[0:-1:2]
-        src_tgt = list(zip(en, ch))
+      src, tgt = line.split('\t')
+      src_punc = re.findall('([\,\.\:\;\!\?\-])', src)
+      tgt_punc = re.findall('([\,\.\:\;\!\?\-])', tgt)
+      if src_punc == tgt_punc:
+        src_split = re.split('([\,\.\:\;\!\?\-])', src)
+        tgt_split = re.split('([\,\.\:\;\!\?\-])', tgt)
+        src = src_split[0:-1:2]
+        tgt = tgt_split[0:-1:2]
+        src_tgt = list(zip(src, tgt))
         for line in src_tgt:
           newlines.append('\t'.join(line).strip())
       else:
@@ -123,7 +123,6 @@ class Apostle:
         if not line.endswith('\n'):
           line += '\n'
         outfile.write(line)
-
 
 if __name__ == '__main__':
   import argparse
